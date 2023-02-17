@@ -70,11 +70,11 @@ class ProfileController extends Controller
 
         $path = Storage::url($request->file('avatar')->store('avatars', 'public'));
 
-        dd($path);
+        // dd($path);
 
-        $request->user()->update([
-            'avatar' => $path,
-        ]);
+        $user = $request->user();
+        $user->avatar = $path;
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'avatar-updated');
     }
